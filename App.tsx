@@ -4,11 +4,11 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Home, Search, PlusCircle, Heart, User } from "lucide-react-native";
 
-import HomeScreen from "./screens/HomeScreen";
-import SearchScreen from "./screens/SearchScreen";
-import SellScreen from "./screens/SellScreen";
-import FavoritesScreen from "./screens/FavoritesScreen";
-import ProfileScreen from "./screens/ProfileScreen";
+import HomeScreen from "./src/screens/Home/Home";
+import SearchScreen from "./src/screens/SearchScreen";
+import SellScreen from "./src/screens/SellScreen";
+import FavoritesScreen from "./src/screens/FavoritesScreen";
+import ProfileScreen from "./src/screens/ProfileScreen";
 
 const Tab = createBottomTabNavigator();
 
