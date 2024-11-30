@@ -1,12 +1,12 @@
 import React from "react";
-import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
+import { View, Text, Image, StyleSheet, TouchableOpacity, ImageSourcePropType } from "react-native";
 import { Box } from "lucide-react-native";
 
 interface Product {
   id: string;
   name: string;
   price: number;
-  image: string;
+  image: ImageSourcePropType;
 }
 
 interface ProductCardProps {
@@ -17,7 +17,7 @@ interface ProductCardProps {
 const ProductCard: React.FC<ProductCardProps> = ({ product, onView3D }) => {
   return (
     <View style={styles.card}>
-      <Image source={{ uri: product.image }} style={styles.image} />
+      <Image source={product.image} style={styles.image} />
       <View style={styles.info}>
         <Text style={styles.name}>{product.name}</Text>
         <Text style={styles.price}>${product.price}</Text>

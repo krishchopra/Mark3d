@@ -5,8 +5,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Home, Search, PlusCircle, Heart, User } from "lucide-react-native";
 
 import HomeScreen from "./src/screens/Home/Home";
-import SearchScreen from "./src/screens/SearchScreen";
-import SellScreen from "./src/screens/SellScreen";
+import SellScreen from "./src/screens/Sell/Sell";
 import FavoritesScreen from "./src/screens/FavouritesScreen";
 import ProfileScreen from "./src/screens/ProfileScreen";
 import SignIn from "./src/screens/SignIn";
