@@ -7,10 +7,12 @@ export const styles = StyleSheet.create({
 		backgroundColor: "#F0F4F8",
 	},
 	title: {
+		textAlign: "center",
 		fontSize: 24,
 		fontWeight: "bold",
 		marginBottom: 16,
 		color: "#2D3748",
+		fontFamily: "Work Sans",
 	},
 	productList: {
 		paddingBottom: 16,
