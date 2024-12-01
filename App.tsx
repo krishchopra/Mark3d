@@ -34,14 +34,14 @@ const App = () => {
 							}
 							return icon;
 						},
-						tabBarActiveTintColor: "#4299E1",
+						tabBarActiveTintColor: "#FFD8BC",
 						tabBarInactiveTintColor: "#FFFFFF",
 						tabBarStyle: {
-							backgroundColor: "#415A77", 
+							backgroundColor: "#441752", 
 							borderTopWidth: 0, 
 						  },
 						  headerStyle: {
-							backgroundColor: "#415A77", 
+							backgroundColor: "#441752", 
 						  },
 						  headerTintColor: "#FFFFFF",
 					})}
@@ -60,7 +60,7 @@ const App = () => {
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		backgroundColor: "#415A77",
+		backgroundColor: "#441752",
 	},
 });
 

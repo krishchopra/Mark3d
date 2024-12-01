@@ -87,9 +87,11 @@ const styles = StyleSheet.create({
     padding: 30,
   },
   title: {
+    fontFamily: "Work Sans",
     fontSize: 28,
-    fontWeight: '600',
-    color: '#415A77',
+    // fontWeight: '600',
+		fontWeight: "bold",
+    color: '#441752',
     textAlign: 'center',
     marginBottom: 60,
   },
@@ -156,7 +158,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#F8F8F8',
   },
   signInButton: {
-    backgroundColor: '#475569',
+    backgroundColor: '#441752',
     borderRadius: 8,
     padding: 16,
     alignItems: 'center',
@@ -178,9 +180,10 @@ const styles = StyleSheet.create({
     fontSize: 14,
   },
   signUpLink: {
-    color: '#475569',
+    color: '#441752',
     fontSize: 14,
-    fontWeight: '500',
+    // fontWeight: '500',
+		fontWeight: "bold",
   },
 });
 
