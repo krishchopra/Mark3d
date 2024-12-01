@@ -1,7 +1,6 @@
 import { supabase } from "../lib/supabase";
 import { Product } from "../types/product";
 
-// TODO: Move to environment variables
 const API_BASE_URL = "https://api.mark3d.example.com";
 
 // Helper function to convert camelCase to snake_case

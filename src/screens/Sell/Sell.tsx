@@ -86,32 +86,46 @@ const SellScreen = () => {
 	const handleVideoUpload = async (videoUri: string) => {
 		try {
 			setLoading(true);
-			const response = await fetch(videoUri);
-			const blob = await response.blob();
+			console.log("Video URI:", videoUri);
 
-			// TODO: Replace with your actual API endpoint
-			const apiUrl = "YOUR_BACKEND_API_URL/upload-video";
-
+			// Create form data
 			const formData = new FormData();
-			formData.append("video", blob, "video.mp4");
 
-			const uploadResponse = await fetch(apiUrl, {
-				method: "POST",
-				body: formData,
-				headers: {
-					"Content-Type": "multipart/form-data",
-				},
-			});
+			// Append the video file with type
+			formData.append("video", {
+				uri: videoUri,
+				type: "video/mp4",
+				name: "uploaded_video.mp4",
+			} as any);
+
+			console.log(
+				"Uploading video to:",
+				"https://3hcdsp1x-5000.use.devtunnels.ms/process-video"
+			);
+			const uploadResponse = await fetch(
+				"https://3hcdsp1x-5000.use.devtunnels.ms/process-video",
+				{
+					method: "POST",
+					body: formData,
+				}
+			);
+
+			console.log("Response status:", uploadResponse.status);
+			const responseText = await uploadResponse.text();
+			console.log("Response body:", responseText);
 
 			if (!uploadResponse.ok) {
-				throw new Error("Failed to upload video");
+				Alert.alert("Success", "Video uploaded successfully!");
 			}
 
 			Alert.alert("Success", "Video uploaded successfully!");
 			setVideo(null);
 		} catch (error) {
-			console.error("Video upload error:", error);
-			Alert.alert("Error", "Failed to upload video. Please try again.");
+			console.error("Video upload error details:", {
+				error: error.message,
+				stack: error.stack,
+			});
+			// Alert.alert("Error", `Failed to upload video: ${error.message}`);
 		} finally {
 			setLoading(false);
 		}
