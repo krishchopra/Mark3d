@@ -83,10 +83,10 @@ const FavouritesScreen = () => {
       <View style={styles.imageContainer}>
         <Image source={{ uri: item.image }} style={styles.itemImage} />
         <TouchableOpacity style={styles.menuButton}>
-          <Ionicons name="ellipsis-horizontal" size={20} color="#666" />
+          <Ionicons name="ellipsis-horizontal" size={20} color="#441752" />
         </TouchableOpacity>
         <TouchableOpacity style={styles.heartButton}>
-          <Ionicons name="heart" size={24} color="white" />
+          <Ionicons name="heart" size={24} color="#441752" />
         </TouchableOpacity>
       </View>
       <View style={styles.itemDetails}>
@@ -143,9 +143,12 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
   headerTitle: {
-    fontSize: 24,
+    fontSize: 15,
+    textAlign: 'center',
+    fontFamily: "Work Sans",
+    // fontWeight: 'bold',
     fontWeight: '600',
-    color: '#4A5759',
+    color: '#441752',
   },
   headerSubtitle: {
     fontSize: 14,
@@ -192,7 +195,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 8,
     right: 8,
-    backgroundColor: 'rgba(0,0,0,0.3)',
+    backgroundColor: '#ffffff',
     borderRadius: 20,
     padding: 8,
   },

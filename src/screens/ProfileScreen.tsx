@@ -53,7 +53,7 @@ const ProfileScreen = () => {
             <View style={styles.statsContainer}>
               <View style={styles.statItem}>
                 <Text style={styles.statNumber}>1,250</Text>
-                <Text style={styles.statLabel}>Activities</Text>
+                <Text style={styles.statLabel}>Postings</Text>
               </View>
               <View style={styles.statDivider} />
               <View style={styles.statItem}>
