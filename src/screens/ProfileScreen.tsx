@@ -18,7 +18,7 @@ const ProfileScreen = () => {
         <SafeAreaView style={styles.content}>
           <View style={styles.profileSection}>
             <Image
-              source={require('../assets/products/antique-table.png')}
+              source={require('../assets/products/krish.jpg')}
               style={styles.profileImage}
             />
             <Text style={styles.name}>Christina Slater</Text>

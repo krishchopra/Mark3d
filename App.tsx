@@ -2,13 +2,13 @@ import React from "react";
 import { SafeAreaView, StyleSheet, StatusBar } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Home, Search, PlusCircle, Heart, User } from "lucide-react-native";
+import { Home, PlusCircle, Heart, User } from "lucide-react-native";
 
 import HomeScreen from "./src/screens/Home/Home";
 import SellScreen from "./src/screens/Sell/Sell";
 import FavoritesScreen from "./src/screens/FavouritesScreen";
 import ProfileScreen from "./src/screens/ProfileScreen";
-import SignIn from "./src/screens/SignIn";
+// import SignIn from "./src/screens/SignIn";
 
 const Tab = createBottomTabNavigator();
 
@@ -23,8 +23,8 @@ const App = () => {
 							let icon;
 							if (route.name === "Home") {
 								icon = <Home color={color} size={size} />;
-							} else if (route.name === "Search") {
-								icon = <Search color={color} size={size} />;
+							// } else if (route.name === "Search") {
+							// 	icon = <Search color={color} size={size} />;
 							} else if (route.name === "Sell") {
 								icon = <PlusCircle color={color} size={size} />;
 							} else if (route.name === "Favorites") {
@@ -47,7 +47,7 @@ const App = () => {
 					})}
 				>
 					<Tab.Screen name="Home" component={HomeScreen} />
-					<Tab.Screen name="Search" component={SignIn} />
+					{/* <Tab.Screen name="Search" component={SignIn} /> */}
 					<Tab.Screen name="Sell" component={SellScreen} />
 					<Tab.Screen name="Favorites" component={FavoritesScreen} />
 					<Tab.Screen name="Profile" component={ProfileScreen} />
