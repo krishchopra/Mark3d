@@ -15,4 +15,14 @@ export const styles = StyleSheet.create({
 	productList: {
 		paddingBottom: 16,
 	},
+	errorText: {
+		fontSize: 18,
+		color: "red",
+		textAlign: "center",
+		marginTop: 16,
+	},
+	loader: {
+		marginTop: 16,
+		alignSelf: "center",
+	},
 });

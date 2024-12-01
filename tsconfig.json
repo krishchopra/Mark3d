@@ -1,23 +1,17 @@
 {
-  "compilerOptions": {
-    "target": "esnext",
-    "module": "commonjs",
-    "jsx": "react",
-    "strict": true,
-    "esModuleInterop": true,
-    "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "noEmit": true
-  },
-  "include": [
-    "**/*.ts",
-    "**/*.tsx"
-  ],
-  "exclude": [
-    "node_modules",
-    "build"
-  ],
-  "extends": "expo/tsconfig.base"
+	"compilerOptions": {
+		"target": "esnext",
+		"module": "commonjs",
+		"jsx": "react",
+		"strict": true,
+		"esModuleInterop": true,
+		"skipLibCheck": true,
+		"forceConsistentCasingInFileNames": true,
+		"resolveJsonModule": true,
+		"isolatedModules": true,
+		"noEmit": true
+	},
+	"include": ["**/*.ts", "**/*.tsx", "env.d.ts"],
+	"exclude": ["node_modules", "build"],
+	"extends": "expo/tsconfig.base"
 }

@@ -1,41 +1,47 @@
+import { useState, useEffect } from "react";
 import { ImageSourcePropType } from "react-native";
+import { productsService, Product as DBProduct } from "../../services/products";
 
-interface Product {
-	id: string;
-	name: string;
-	price: number;
+export interface Product extends DBProduct {
 	image: ImageSourcePropType;
 }
 
 export const useHome = () => {
-	const products: Product[] = [
-		{
-			id: "1",
-			name: "Vintage Chair",
-			price: 150,
-			image: require("../../assets/products/vintage-chair.png"),
-		},
-		{
-			id: "2",
-			name: "Retro Lamp",
-			price: 80,
-			image: require("../../assets/products/retro-lamp.png"),
-		},
-		{
-			id: "3",
-			name: "Antique Table",
-			price: 300,
-			image: require("../../assets/products/antique-table.png"),
-		},
-		{
-			id: "4",
-			name: "Classic Bookshelf",
-			price: 200,
-			image: require("../../assets/products/classic-bookshelf.png"),
-		},
-	];
+	const [products, setProducts] = useState<Product[]>([]);
+	const [loading, setLoading] = useState(true);
+	const [error, setError] = useState<string | null>(null);
+
+	useEffect(() => {
+		loadProducts();
+	}, []);
+
+	const loadProducts = async () => {
+		try {
+			setLoading(true);
+			const dbProducts = await productsService.getProducts();
+
+			// Format products with direct image URLs
+			const formattedProducts = dbProducts.map((p: DBProduct) => ({
+				...p,
+				image: { uri: p.image_url },
+			}));
+
+			setProducts(formattedProducts);
+			setError(null);
+		} catch (err) {
+			console.error("Error loading products:", err);
+			setError(
+				err instanceof Error ? err.message : "Failed to load products"
+			);
+		} finally {
+			setLoading(false);
+		}
+	};
 
 	return {
 		products,
+		loading,
+		error,
+		loadProducts,
 	};
 };
