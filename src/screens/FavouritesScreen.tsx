@@ -1,33 +1,3 @@
-// import React from "react";
-// import { View, Text, StyleSheet } from "react-native";
-
-// const FavouritesScreen = () => {
-// 	return (
-// 		<View style={styles.container}>
-// 			<Text style={styles.text}>Favorites Screen</Text>
-// 		</View>
-// 	);
-// };
-
-// const styles = StyleSheet.create({
-// 	container: {
-// 		flex: 1,
-// 		justifyContent: "center",
-// 		alignItems: "center",
-// 		backgroundColor: "#F0F4F8",
-// 	},
-// 	text: {
-// 		fontSize: 20,
-// 		color: "#2D3748",
-// 	},
-// });
-
-// export default FavouritesScreen;
-
-
-
-
-
 import React from 'react';
 import { View, Text, Image, StyleSheet, FlatList, TouchableOpacity, SafeAreaView } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
@@ -36,52 +6,47 @@ const FavouritesScreen = () => {
   const favourites = [
     {
       id: '1',
-      title: "Blue Puff Sleeve Dress",
-      price: 24,
-      // size: "MEDIUM",
-      image: "https://via.placeholder.com/150",
+      title: "Pepsi Fountain Drink",
+      price: 3,
+      image: require('../assets/products/pepsi.jpg'),
     },
     {
       id: '2',
-      title: "Women's Jeans",
+      title: "Yellow Chair",
       price: 35,
-      // size: "MEDIUM",
-      image: "https://via.placeholder.com/150",
+      image: require('../assets/products/chair.jpg'),
     },
     {
       id: '3',
-      title: "Checkered Jacket",
+      title: "Pizza and Pizza Box",
       price: 29,
-      // size: "MEDIUM",
-      image: "https://via.placeholder.com/150",
+      image: require('../assets/products/pizza.jpg'),
     },
     {
       id: '4',
-      title: "Nike Blazers",
+      title: "Foldable Water Bottle",
       price: 30,
-      // size: "SIZE 9",
-      image: "https://via.placeholder.com/150",
+      image: require('../assets/products/waterbottle.jpg'),
     },
     {
       id: '5',
-      title: "Leather Jacket",
-      price: 45,
-      // size: "MEDIUM",
-      image: "https://via.placeholder.com/150",
+      title: "Purell Hand Sanitizer",
+      price: 6,
+      image: require('../assets/products/handsanitizer.jpg'),
     },
     {
       id: '6',
-      title: "Winter Parka",
+      title: "Krish Chopra",
       price: 15,
-      // size: "MEDIUM",
-      image: "https://via.placeholder.com/150",
+      image: require('../assets/products/krish.jpg'),
     },
   ];
 
   const renderItem = ({ item }) => (
     <View style={styles.itemContainer}>
       <View style={styles.imageContainer}>
-        <Image source={{ uri: item.image }} style={styles.itemImage} />
+        {/* Ensures proper scaling of the image */}
+        <Image source={item.image} style={styles.itemImage} resizeMode="cover" />
         <TouchableOpacity style={styles.menuButton}>
           <Ionicons name="ellipsis-horizontal" size={20} color="#441752" />
         </TouchableOpacity>
@@ -90,10 +55,11 @@ const FavouritesScreen = () => {
         </TouchableOpacity>
       </View>
       <View style={styles.itemDetails}>
-        <Text style={styles.itemTitle} numberOfLines={2}>{item.title}</Text>
+        <Text style={styles.itemTitle} numberOfLines={2}>
+          {item.title}
+        </Text>
         <View style={styles.priceAndSize}>
           <Text style={styles.itemPrice}>${item.price.toFixed(2)}</Text>
-          <Text style={styles.itemSize}>{item.size}</Text>
         </View>
       </View>
     </View>
@@ -102,8 +68,7 @@ const FavouritesScreen = () => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
-        {/* <Text style={styles.headerTitle}>Favorites</Text> */}
-        <Text style={styles.headerTitle}>You have 23 favourites!</Text>
+        <Text style={styles.headerTitle}>You have 6 favourites!</Text>
       </View>
       <FlatList
         data={favourites}
@@ -112,23 +77,6 @@ const FavouritesScreen = () => {
         numColumns={2}
         contentContainerStyle={styles.listContent}
       />
-      {/* <View style={styles.bottomNav}>
-        <TouchableOpacity style={styles.navItem}>
-          <Ionicons name="home-outline" size={24} color="#666" />
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.navItem}>
-          <Ionicons name="compass-outline" size={24} color="#666" />
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.navItem}>
-          <Ionicons name="cart-outline" size={24} color="#666" />
-        </TouchableOpacity>
-        <TouchableOpacity style={[styles.navItem, styles.activeNavItem]}>
-          <Ionicons name="heart" size={24} color="#4A5759" />
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.navItem}>
-          <Ionicons name="person-outline" size={24} color="#666" />
-        </TouchableOpacity>
-      </View> */}
     </SafeAreaView>
   );
 };
@@ -146,14 +94,8 @@ const styles = StyleSheet.create({
     fontSize: 15,
     textAlign: 'center',
     fontFamily: "Work Sans",
-    // fontWeight: 'bold',
     fontWeight: '600',
     color: '#441752',
-  },
-  headerSubtitle: {
-    fontSize: 14,
-    color: '#666',
-    marginTop: 4,
   },
   listContent: {
     padding: 8,
@@ -172,11 +114,13 @@ const styles = StyleSheet.create({
   },
   imageContainer: {
     position: 'relative',
+    width: '100%',
+    aspectRatio: 1, // Ensures square frames
   },
   itemImage: {
     width: '100%',
-    aspectRatio: 1,
-    borderRadius: 12,
+    height: '100%',
+    borderRadius: 12, // Matches container border radius
   },
   menuButton: {
     position: 'absolute',
@@ -218,27 +162,6 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     color: '#4A5759',
   },
-  itemSize: {
-    fontSize: 12,
-    color: '#666',
-  },
-  bottomNav: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    alignItems: 'center',
-    paddingVertical: 16,
-    backgroundColor: 'white',
-    borderTopWidth: 1,
-    borderTopColor: '#eee',
-  },
-  navItem: {
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  activeNavItem: {
-    opacity: 1,
-  },
 });
 
 export default FavouritesScreen;
-
