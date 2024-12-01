@@ -20,6 +20,7 @@ const SellScreen = () => {
 	const [name, setName] = useState("");
 	const [price, setPrice] = useState("");
 	const [image, setImage] = useState<string | null>(null);
+	const [video, setVideo] = useState<string | null>(null);
 	const [loading, setLoading] = useState(false);
 
 	const handlePriceChange = (text: string) => {
@@ -66,6 +67,53 @@ const SellScreen = () => {
 
 		if (!result.canceled) {
 			setImage(result.assets[0].uri);
+		}
+	};
+
+	const pickVideo = async () => {
+		const result = await ImagePicker.launchImageLibraryAsync({
+			mediaTypes: ImagePicker.MediaTypeOptions.Videos,
+			allowsEditing: true,
+			quality: 0.5,
+		});
+
+		if (!result.canceled) {
+			setVideo(result.assets[0].uri);
+			handleVideoUpload(result.assets[0].uri);
+		}
+	};
+
+	const handleVideoUpload = async (videoUri: string) => {
+		try {
+			setLoading(true);
+			const response = await fetch(videoUri);
+			const blob = await response.blob();
+
+			// TODO: Replace with your actual API endpoint
+			const apiUrl = "YOUR_BACKEND_API_URL/upload-video";
+
+			const formData = new FormData();
+			formData.append("video", blob, "video.mp4");
+
+			const uploadResponse = await fetch(apiUrl, {
+				method: "POST",
+				body: formData,
+				headers: {
+					"Content-Type": "multipart/form-data",
+				},
+			});
+
+			if (!uploadResponse.ok) {
+				throw new Error("Failed to upload video");
+			}
+
+			Alert.alert("Success", "Video uploaded successfully!");
+			setVideo(null);
+		} catch (error) {
+			console.error("Video upload error:", error);
+			Alert.alert("Error", "Failed to upload video. Please try again.");
+		} finally {
+			setLoading(false);
 		}
 	};
 
@@ -133,8 +181,8 @@ const SellScreen = () => {
 				await productsService.addProduct({
 					name,
 					price: parseFloat(price.replace("$", "")),
-					image_url: urlData.publicUrl,
-					user_id: "guest",
+					imageUrl: urlData.publicUrl,
+					userId: "guest",
 				});
 			} catch (error) {
 				console.error("Image upload error:", error);
@@ -176,23 +224,50 @@ const SellScreen = () => {
 								Change Photo
 							</Text>
 						</TouchableOpacity>
+						<TouchableOpacity
+							style={[styles.uploadVideoButton]}
+							onPress={pickVideo}
+							disabled={loading}
+						>
+							<Text style={styles.buttonText}>
+								Upload Video for 3D Model
+							</Text>
+						</TouchableOpacity>
 					</View>
 				) : (
-					<View style={styles.imageButtons}>
+					<View>
+						<View style={styles.imageButtons}>
+							<TouchableOpacity
+								style={[
+									styles.imageButton,
+									styles.takePhotoButton,
+								]}
+								onPress={takePhoto}
+							>
+								<Text style={styles.buttonText}>
+									Take Photo
+								</Text>
+							</TouchableOpacity>
+							<TouchableOpacity
+								style={[
+									styles.imageButton,
+									styles.choosePhotoButton,
+								]}
+								onPress={pickImage}
+							>
+								<Text style={styles.buttonText}>
+									Choose Photo
+								</Text>
+							</TouchableOpacity>
+						</View>
 						<TouchableOpacity
-							style={[styles.imageButton, styles.takePhotoButton]}
-							onPress={takePhoto}
+							style={[styles.uploadVideoButton]}
+							onPress={pickVideo}
+							disabled={loading}
 						>
-							<Text style={styles.buttonText}>Take Photo</Text>
-						</TouchableOpacity>
-						<TouchableOpacity
-							style={[
-								styles.imageButton,
-								styles.choosePhotoButton,
-							]}
-							onPress={pickImage}
-						>
-							<Text style={styles.buttonText}>Choose Photo</Text>
+							<Text style={styles.buttonText}>
+								Upload Video for 3D Model
+							</Text>
 						</TouchableOpacity>
 					</View>
 				)}

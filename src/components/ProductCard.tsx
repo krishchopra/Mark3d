@@ -8,7 +8,7 @@ import {
 	Alert,
 } from "react-native";
 import { Box, Trash2 } from "lucide-react-native";
-import { Product } from "../screens/Home/useHome";
+import { Product } from "../types/product";
 import { productsService } from "../services/products";
 
 interface ProductCardProps {
@@ -32,24 +32,32 @@ const ProductCard: React.FC<ProductCardProps> = ({
 					style: "cancel",
 				},
 				{
-					text: "Delete",
+					text: "",
 					style: "destructive",
 					onPress: async () => {
 						try {
 							// Extract image path from URL
-							const url = new URL(product.image_url);
+							const url = new URL(product.imageUrl);
 							const imagePath = url.pathname.split("/").pop()!;
+
+							// Extract video path if it exists
+							let videoPath: string | undefined;
+							if (product.videoUrl) {
+								const videoUrl = new URL(product.videoUrl);
+								videoPath = videoUrl.pathname.split("/").pop()!;
+							}
 
 							await productsService.deleteProduct(
 								product.id,
-								imagePath
+								imagePath,
+								videoPath
 							);
 							onDelete?.();
 						} catch (error) {
 							console.error("Delete error:", error);
 							Alert.alert(
 								"Error",
-								"Failed to delete listing. Please try again."
+								"Failed to delete the listing. Please try again."
 							);
 						}
 					},
@@ -58,37 +66,31 @@ const ProductCard: React.FC<ProductCardProps> = ({
 		);
 	};
 
-	// Add query parameter for image compression
-	const imageUrl = new URL(product.image_url);
-	imageUrl.searchParams.set("quality", "50");
-
 	return (
 		<View style={styles.card}>
-			<View style={styles.imageContainer}>
-				<Image
-					source={{ uri: imageUrl.toString() }}
-					style={styles.image}
-					resizeMode="cover"
-					onError={(error) =>
-						console.error("Image loading error:", error)
-					}
-				/>
-			</View>
-			<View style={styles.info}>
+			<Image source={{ uri: product.imageUrl }} style={styles.image} />
+			<View style={styles.content}>
 				<Text style={styles.name}>{product.name}</Text>
-				<Text style={styles.price}>${product.price.toFixed(2)}</Text>
-			</View>
-			<View style={styles.buttonContainer}>
-				<TouchableOpacity style={styles.viewButton} onPress={onView3D}>
-					<Box color="#FFFFFF" size={16} />
-					<Text style={styles.viewButtonText}>View 3D</Text>
-				</TouchableOpacity>
-				<TouchableOpacity
-					style={styles.deleteButton}
-					onPress={handleDelete}
-				>
-					<Trash2 color="#FFFFFF" size={16} />
-				</TouchableOpacity>
+				<Text style={styles.price}>${product.price}</Text>
+				<View style={styles.buttonContainer}>
+					{onView3D && (
+						<TouchableOpacity
+							style={styles.button}
+							onPress={onView3D}
+						>
+							<Box size={20} color="#000" />
+							<Text style={styles.buttonText}>View 3D</Text>
+						</TouchableOpacity>
+					)}
+					{onDelete && (
+						<TouchableOpacity
+							style={[styles.button, styles.deleteButton]}
+							onPress={handleDelete}
+						>
+							<Trash2 size={20} color="#FF0000" />
+						</TouchableOpacity>
+					)}
+				</View>
 			</View>
 		</View>
 	);
@@ -98,56 +100,57 @@ const styles = StyleSheet.create({
 	card: {
 		flex: 1,
 		margin: 8,
-		backgroundColor: "#FFFFFF",
+		backgroundColor: "#fff",
 		borderRadius: 8,
-		overflow: "hidden",
-		elevation: 2,
-	},
-	imageContainer: {
-		width: "100%",
-		height: 150,
+		shadowColor: "#000",
+		shadowOffset: {
+			width: 0,
+			height: 2,
+		},
+		shadowOpacity: 0.25,
+		shadowRadius: 3.84,
+		elevation: 5,
 	},
 	image: {
 		width: "100%",
-		height: "100%",
+		height: 200,
+		borderTopLeftRadius: 8,
+		borderTopRightRadius: 8,
 	},
-	info: {
-		padding: 8,
+	content: {
+		padding: 12,
 	},
 	name: {
-		fontSize: 16,
-		fontWeight: "500",
+		fontSize: 18,
+		fontWeight: "bold",
 		marginBottom: 4,
 	},
 	price: {
 		fontSize: 16,
-		color: "#4299E1",
-		fontWeight: "600",
+		color: "#666",
+		marginBottom: 8,
 	},
 	buttonContainer: {
 		flexDirection: "row",
-		padding: 8,
 		justifyContent: "space-between",
-		alignItems: "center",
+		marginTop: 8,
 	},
-	viewButton: {
-		backgroundColor: "#4299E1",
+	button: {
 		flexDirection: "row",
 		alignItems: "center",
-		paddingHorizontal: 12,
-		paddingVertical: 6,
-		borderRadius: 6,
-		gap: 4,
-	},
-	viewButtonText: {
-		color: "#FFFFFF",
-		marginLeft: 4,
-		fontWeight: "500",
+		padding: 8,
+		borderRadius: 4,
+		backgroundColor: "#f0f0f0",
 	},
 	deleteButton: {
-		backgroundColor: "#EF4444",
-		padding: 6,
-		borderRadius: 6,
+		backgroundColor: "#ffe0e0",
+	},
+	buttonText: {
+		marginLeft: 4,
+		fontSize: 14,
+	},
+	deleteText: {
+		color: "#FF0000",
 	},
 });
 

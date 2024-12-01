@@ -30,13 +30,20 @@ export const styles = StyleSheet.create({
 	choosePhotoButton: {
 		backgroundColor: "#63B3ED",
 	},
+	uploadVideoButton: {
+		backgroundColor: "#4C51BF",
+        padding: 16,
+        borderRadius: 8,
+        alignItems: "center",
+        marginBottom: 16,
+	},
 	changePhotoButton: {
 		backgroundColor: "#4299E1",
-		padding: 8,
+		padding: 10,
 		borderRadius: 8,
 		alignItems: "center",
 		marginTop: 8,
-        marginBottom: 16
+		marginBottom: 16,
 	},
 	changePhotoText: {
 		color: "#FFFFFF",
