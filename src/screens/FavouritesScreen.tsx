@@ -24,7 +24,7 @@ const FavouritesScreen = () => {
     },
     {
       id: '4',
-      title: "Foldable Water Bottle",
+      title: "Water Bottle",
       price: 30,
       image: require('../assets/products/waterbottle.jpg'),
     },
