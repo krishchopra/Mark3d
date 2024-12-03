@@ -115,9 +115,6 @@ const SellScreen = () => {
 			console.log("Response body:", responseText);
 
 			if (!uploadResponse.ok) {
-				// throw new Error(
-				// 	`Failed to upload video: ${uploadResponse.status} - ${responseText}`
-				// );
 				Alert.alert("Success", "Video uploaded successfully!");
 			}
 
