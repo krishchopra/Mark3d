@@ -32,7 +32,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
 					style: "cancel",
 				},
 				{
-					text: "",
+					text: "Delete",
 					style: "destructive",
 					onPress: async () => {
 						try {
